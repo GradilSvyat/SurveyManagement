@@ -26,13 +26,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SurveyManagement</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Survey</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Survey">Survey</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Create">Create</a></li>
                 </ul>
             </div>
         </div>
@@ -43,9 +42,6 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2019 - SurveyManagement</p>
-        </footer>
     </div>
 
     <environment include="Development">
