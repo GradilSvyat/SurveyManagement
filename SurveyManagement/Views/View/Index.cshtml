@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Создать опрос", "Create", "View")
+
+        <br />
+
+        @Html.ActionLink("Опрос", "Survey", "View")
+
+
+        @{
+            foreach (var a in Model)
+            {
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@a.Name</h5>
+                            <small>@a.Date</small>
+                        </div>
+                        <p class="mb-1">@a.Creator</p>
+                    </a>
+                </div>
+
+            }
+        }
+
+    </div>
+</body>
+</html>
+
