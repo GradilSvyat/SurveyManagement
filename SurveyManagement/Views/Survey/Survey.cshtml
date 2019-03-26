@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Survey";
+}
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Survey</title>
+</head>
+<body>
+    <h2>@ViewBag.survey.Name</h2>
+    <div>@ViewBag.survey.Creator</div>
+    <br />
+
+    <div>@ViewBag.survey.Date.ToShortDateString()</div>
+    <br />
+    <br />
+
+
+    @{
+        foreach (var x in Model)
+        {
+            <div>@x.Questions.Text</div>
+            
+            <button>@Html.RouteLink("Добавить ответ", new { Controller = "Answer", Action = "CreateAnswer", Id = x.Questions.Id })</button>
+            <div>@x.Questions.Comment</div>
+
+            foreach (SurveyManagement.Models.Domain.Answer i in x.Answers)
+            {
+                @Html.CheckBox(i.Text)
+                <label>@i.Text</label>
+                <br />
+            }
+        }
+
+    }
+    <div cllas="nav">
+        <p>
+            <a href="@(ViewBag.survey.Id-1)">Предыдущий опрос</a>
+            <a href="@(ViewBag.survey.Id+1)">Следующий опрос</a>
+        </p>
+    </div>
+    <button>@Html.RouteLink("Добавить вопрос", new { Controller = "Questions", Action = "CreateQuestion", Id = ViewBag.survey.Id })</button>
+
+</body>
+</html>

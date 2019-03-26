@@ -11,7 +11,7 @@ namespace SurveyManagement.Controllers
 {
     //[Route("api/[controller]")]
     //[ApiController]
-    public class QuestionsController : ControllerBase
+    public class QuestionsController : Controller
     {
         private readonly QuestionRepository _rep;
 
@@ -38,6 +38,28 @@ namespace SurveyManagement.Controllers
 
             return Ok(_rep.FindAllById(questionId));
         }
+
+        [HttpGet]
+        public IActionResult CreateQuestion(int id)
+        {
+            Models.Domain.Question question = new Models.Domain.Question()
+            {
+                SurveyId = id
+            };
+            return View(question);
+        }
+
+        [HttpPost]
+        public IActionResult CreateQuestion(Models.Domain.Question new_question)
+        {
+            if (ModelState.IsValid)
+            {
+                 _rep.Create(new_question);
+                return Redirect(String.Format("~/Survey/Survey/{0}", new_question.SurveyId));
+            }
+            return View();
+        }
+
         // GET: api/Questions/5
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetQuestion([FromRoute] int id)

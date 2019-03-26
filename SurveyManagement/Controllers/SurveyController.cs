@@ -2,13 +2,14 @@
 using SurveyManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SurveyManagement.Controllers
 {
 
-    public class SurveyController : ControllerBase
+    public class SurveyController : Controller
     {
         private readonly Repository<Models.Domain.Survey> _rep;
 
@@ -16,6 +17,39 @@ namespace SurveyManagement.Controllers
         {
             _rep = rep;
         }
+
+        public IActionResult Survey(int id)
+        {
+            ViewBag.survey = _rep.FindById(id);
+            return View(_rep.FindQuestionsWithAnswers(id));
+        }
+
+        [HttpGet]
+        public IActionResult CreateSurvey()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateSurvey(Models.Domain.Survey new_survey)
+        {
+            var listNames = _rep.GetAll();
+            foreach (var a in listNames)
+            {
+                if (new_survey.Name == a.Name)
+                {
+                    ModelState.AddModelError("Name", "Опросник с таким названием уже существует");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                _rep.Create(new_survey);
+                return Redirect(String.Format("~/View/Survey/{0}", new_survey.Id));
+            }
+            return View();
+        }
+
+
 
         [Route("survey")]
         public ActionResult<IList<Models.Domain.Survey>> Get()

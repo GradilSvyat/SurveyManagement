@@ -1,0 +1,35 @@
+﻿@model SurveyManagement.Models.Domain.Question 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    @using (Html.BeginForm("CreateQuestion", "Questions"))
+    {
+        <fieldset>
+
+            <h2>Добавление вопроса</h2>
+
+            <p>
+                @Html.EditorForModel()
+                @Html.ValidationMessageFor(x => x.Text)
+            </p>
+
+            @Html.HiddenFor(x => x.SurveyId)
+            <br />
+            <br />
+
+            <input type="submit" value="Создать" />
+        </fieldset>
+    }
+
+</body>
+</html>

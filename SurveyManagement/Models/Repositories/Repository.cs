@@ -17,17 +17,25 @@ namespace SurveyManagement.Models
             _dbSet = context.Set<TEntity>();
         }
 
-        public IQueryable FindQuestionsWithAnswers(int id)
+        public List<Models.Domain.QuestionAnswer> FindQuestionsWithAnswers(int id)
         {
-            return db.Questions.Where(q => q.SurveyId == id).GroupJoin(db.Answers,
+            List<Models.Domain.QuestionAnswer> a = new List<Domain.QuestionAnswer>();
+            var listQuestionAnswer = db.Questions.Where(q => q.SurveyId == id).GroupJoin(db.Answers,
                                                                         q => q.Id,
                                                                         v => v.QuestionId,
                                                                         (q, v) => new
                                                                         {
-                                                                            x = q.Text,
-                                                                            z = q.Comment,
-                                                                            y = v.Select(ans => ans.Text)
+                                                                            question = q.Text,
+                                                                            comment = q.Comment,
+                                                                            questionId = q.Id,
+                                                                            surveyId = q.SurveyId,
+                                                                            answers = v.Select(ans => ans.Text)
                                                                         });
+            foreach (var item in listQuestionAnswer)
+            {
+                a.Add(new Models.Domain.QuestionAnswer(item.question, item.comment, item.questionId, item.surveyId, item.answers));
+            }
+            return a;
         }
 
         public IQueryable<TEntity> GetAll()
@@ -45,11 +53,6 @@ namespace SurveyManagement.Models
         {
             return _dbSet.Find(id);
         }
-
-        //public virtual IReadOnlyCollection<TEntity> FindAllById<TEntity>(int id, Func<TEntity> func)
-        //{
-        //    return db.Set<TEntity>().AsNoTracking().ToList<TEntity>();//.Select<int, TEntity>(func);
-        //}
 
         public IEnumerable<TEntity> Get()
         {

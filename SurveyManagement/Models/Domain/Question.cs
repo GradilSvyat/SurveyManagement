@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,17 +10,27 @@ namespace SurveyManagement.Models.Domain
 {
     public class Question
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; private set; }
+        [Required(ErrorMessage = "Вы не ввели текст вопроса")]
+        [Display(Name = "Текст вопроса")]
         public string Text { get; set; }
+        [Display(Name = "Текст коментария")]
         public string Comment { get; set; }
-        public int SurveyId { get; private set; }
+        [HiddenInput(DisplayValue = false)]
+        public int SurveyId { get; set; }
 
-        public Question (int id, string text, string comment, int surveyId)
+        public Question(string text, string comment, int id, int surveyId)
         {
-            this.Id = id;
-            this.Text = text;
-            this.Comment = comment;
-            this.SurveyId = surveyId;
+            SurveyId = surveyId;
+            Id = id;
+            Comment = comment;
+            Text = text;
         }
+        public Question()
+        {
+        }
+
+
     }
 }

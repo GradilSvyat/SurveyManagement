@@ -16,29 +16,28 @@
 </head>
 <body>
     <div>
-        @Html.ActionLink("Создать опрос", "Create", "View")
+        <button>@Html.ActionLink("Создать опрос", "CreateSurvey", "Survey")</button>
 
         <br />
 
-        @Html.ActionLink("Опрос", "Survey", "View")
 
+        <ul style="display:block">
 
-        @{
-            foreach (var a in Model)
-            {
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">@a.Name</h5>
-                            <small>@a.Date</small>
-                        </div>
-                        <p class="mb-1">@a.Creator</p>
-                    </a>
-                </div>
-
+            @{
+                foreach (var a in Model)
+                {
+                    <li>
+                        <a href="Survey/Survey/@a.Id" class="list-group-item list-group-item-action">
+                            <div class="d-flex flex-row bd-highlight mb-3">
+                                <h3 class="mb-1">@a.Name</h3>
+                                <small>@a.Date.ToShortDateString()</small>
+                            </div>
+                            <p class="mb-1">@a.Creator<p />
+                        </a>
+                    </li>
+                }
             }
-        }
-
+        </ul>
     </div>
 </body>
 </html>

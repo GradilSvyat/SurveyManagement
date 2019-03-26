@@ -16,5 +16,10 @@ namespace SurveyManagement.Models.Repositories
         {
             return _dbSet.Where(x => x.QuestionId == id).ToList<Domain.Answer>();
         }
+
+        public int GetSurveyId (int questionId)
+        {
+            return db.Questions.Where(x => x.Id == questionId).Single().SurveyId;
+        }
     }
 }

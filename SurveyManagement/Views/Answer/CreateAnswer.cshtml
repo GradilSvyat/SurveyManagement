@@ -1,0 +1,40 @@
+﻿@model SurveyManagement.Models.Domain.Answer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateAnswer</title>
+</head>
+<body>
+
+    @using (Html.BeginForm("CreateAnswer", "Answer"))
+    {
+        <fieldset>
+
+            <h2>Добавление ответа</h2>
+
+            <p>
+                @Html.EditorForModel()
+                @Html.ValidationMessageFor(x => x.Text)
+            </p>
+
+            @Html.HiddenFor(x => x.QuestionId)
+            <br />
+            <br />
+
+            <input type="submit" value="Создать" />
+        </fieldset>
+    }
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</body>
+</html>

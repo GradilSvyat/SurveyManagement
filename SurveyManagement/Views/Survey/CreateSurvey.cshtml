@@ -1,0 +1,41 @@
+﻿@model SurveyManagement.Models.Domain.Survey
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateSurvey</title>
+</head>
+<body>
+
+    @using (Html.BeginForm("CreateSurvey", "View"))
+    {
+    <fieldset>
+
+        <h2>Создание опросника</h2>
+
+        <p>
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name)
+            @Html.ValidationMessageFor(x => x.Name)
+        </p>
+
+        <p>
+            @Html.LabelFor(x => x.Creator)
+            @Html.EditorFor(x => x.Creator)
+            @Html.ValidationMessageFor(x => x.Creator)
+        </p>
+
+        <br />
+        <br />
+
+        <input type="submit" value="Создать" />
+    </fieldset>
+    }
+
+</body>
+</html>
